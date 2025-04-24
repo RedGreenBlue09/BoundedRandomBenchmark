@@ -118,7 +118,7 @@ This algorithm is well balanced. It performs decently in the large range test an
 
 #### Implementation
 
-Simplest logic of all algorithms.
+Simple logic. The optimized version is complex but understandable.
 
 For 64-bit RNG, it requires the high result of 64-bit by 64-bit multiplication. 
 You can use `__int128` with GCC, `_umul128` with MSVC or implement this yourself with performance penalty.
@@ -129,7 +129,7 @@ It is the slowest one. The optimized version is faster for 64-bit RNG but is slo
 
 #### Implementation
 
-Also simple logic. The optimized version is complex but understandable.
+Simple logic. The optimized version is complex but understandable.
 
 It does not require any special math function.
 

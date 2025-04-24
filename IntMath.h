@@ -129,7 +129,7 @@ static uint8_t log2_uptr(uintptr_t X) {
 
 // Multiply two 64-bit integers to get 128-bit result
 
-static void mul_u64_iso(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
+static void mul_u64_iso(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
 	uint32_t A0 = (uint32_t)A;
 	uint32_t A1 = (uint32_t)(A >> 32);
 	uint32_t B0 = (uint32_t)B;
@@ -143,8 +143,8 @@ static void mul_u64_iso(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
 	uint64_t Mid = R01 + R10;
 	uint8_t Carry = (Mid < R10); // Detect overflow
 
-	(*Result)[0] = R00 + (Mid << 32);
-	(*Result)[1] = R11 + (Mid >> 32) + Carry;
+	(*pResult)[0] = R00 + (Mid << 32);
+	(*pResult)[1] = R11 + (Mid >> 32) + Carry;
 }
 
 #if _MSC_VER
@@ -153,14 +153,14 @@ static void mul_u64_iso(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
 	
 #pragma intrinsic(_umul128)
 
-static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
-	(*Result)[0] = _umul128(A, B, &(*Result)[1]);
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
+	(*pResult)[0] = _umul128(A, B, &(*pResult)[1]);
 }
 		
 	#elif MACHINE_PTR32
 		
-static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
-	mul_u64_iso(A, B, Result);
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
+	mul_u64_iso(A, B, pResult);
 }
 
 	#endif
@@ -171,24 +171,24 @@ static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
 	
 #pragma intrinsic(_umul128)
 
-static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
 	unsigned __int128 Result2 = (unsigned __int128)A * B;
-	(*Result)[0] = (uint64_t)Result2;
-	(*Result)[1] = (uint64_t)(Result2 >> 64);
+	(*pResult)[0] = (uint64_t)Result2;
+	(*pResult)[1] = (uint64_t)(Result2 >> 64);
 }
 		
 	#elif MACHINE_PTR32
 		
-static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
-	mul_u64_iso(A, B, Result);
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
+	mul_u64_iso(A, B, pResult);
 }
 
 	#endif
 
 #else
 
-static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
-	mul_u64_iso(A, B, Result);
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
+	mul_u64_iso(A, B, pResult);
 }
 	
 #endif
