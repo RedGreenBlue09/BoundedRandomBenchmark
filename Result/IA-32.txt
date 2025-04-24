@@ -1,0 +1,195 @@
+64-bit RNG
+
+Large range + fast RNG + Bitmask
+Time: 2412791 us
+Rng calls: 138626677
+
+Large range + fast RNG + Short product
+Time: 3592916 us
+Rng calls: 150001616
+
+Large range + fast RNG + Multiply
+Time: 7518459 us
+Rng calls: 125772450
+
+Large range + fast RNG + Multiply 2
+Time: 3663306 us
+Rng calls: 125780945
+
+Large range + fast RNG + Modulo
+Time: 8461825 us
+Rng calls: 125777851
+
+Large range + fast RNG + Modulo 2
+Time: 4887935 us
+Rng calls: 125766386
+
+Large range + slow RNG + Bitmask
+Time: 15666169 us
+Rng calls: 138631429
+
+Large range + slow RNG + Short product
+Time: 17956115 us
+Rng calls: 150001698
+
+Large range + slow RNG + Multiply
+Time: 19398651 us
+Rng calls: 125765757
+
+Large range + slow RNG + Multiply 2
+Time: 16102626 us
+Rng calls: 125781509
+
+Large range + slow RNG + Modulo
+Time: 20806383 us
+Rng calls: 125780407
+
+Large range + slow RNG + Modulo 2
+Time: 16505488 us
+Rng calls: 125776386
+
+Small range + fast RNG + Bitmask
+Time: 2477066 us
+Rng calls: 138227803
+
+Small range + fast RNG + Short product
+Time: 2199941 us
+Rng calls: 100000000
+
+Small range + fast RNG + Multiply
+Time: 2620020 us
+Rng calls: 100000000
+
+Small range + fast RNG + Multiply 2
+Time: 2177599 us
+Rng calls: 100000000
+
+Small range + fast RNG + Modulo
+Time: 2366357 us
+Rng calls: 100000000
+
+Small range + fast RNG + Modulo 2
+Time: 2283155 us
+Rng calls: 100000000
+
+Small range + slow RNG + Bitmask
+Time: 15400826 us
+Rng calls: 138216508
+
+Small range + slow RNG + Short product
+Time: 11516406 us
+Rng calls: 100000000
+
+Small range + slow RNG + Multiply
+Time: 11912243 us
+Rng calls: 100000000
+
+Small range + slow RNG + Multiply 2
+Time: 11495729 us
+Rng calls: 100000000
+
+Small range + slow RNG + Modulo
+Time: 11823745 us
+Rng calls: 100000000
+
+Small range + slow RNG + Modulo 2
+Time: 11738719 us
+Rng calls: 100000000
+
+32-bit RNG
+
+Large range + fast RNG + Bitmask
+Time: 904809 us
+Rng calls: 138633677
+
+Large range + fast RNG + Short product
+Time: 1528250 us
+Rng calls: 149994867
+
+Large range + fast RNG + Multiply
+Time: 1240928 us
+Rng calls: 125770325
+
+Large range + fast RNG + Multiply 2
+Time: 1533455 us
+Rng calls: 125777203
+
+Large range + fast RNG + Modulo
+Time: 1260533 us
+Rng calls: 125775559
+
+Large range + fast RNG + Modulo 2
+Time: 1901338 us
+Rng calls: 125775179
+
+Large range + slow RNG + Bitmask
+Time: 11652191 us
+Rng calls: 138630023
+
+Large range + slow RNG + Short product
+Time: 12968592 us
+Rng calls: 149994743
+
+Large range + slow RNG + Multiply
+Time: 10586294 us
+Rng calls: 125779477
+
+Large range + slow RNG + Multiply 2
+Time: 10851510 us
+Rng calls: 125776590
+
+Large range + slow RNG + Modulo
+Time: 10806857 us
+Rng calls: 125775885
+
+Large range + slow RNG + Modulo 2
+Time: 10947029 us
+Rng calls: 125777944
+
+Small range + fast RNG + Bitmask
+Time: 939309 us
+Rng calls: 138230560
+
+Small range + fast RNG + Short product
+Time: 606290 us
+Rng calls: 100000006
+
+Small range + fast RNG + Multiply
+Time: 741945 us
+Rng calls: 100000008
+
+Small range + fast RNG + Multiply 2
+Time: 509901 us
+Rng calls: 100000004
+
+Small range + fast RNG + Modulo
+Time: 671074 us
+Rng calls: 100000007
+
+Small range + fast RNG + Modulo 2
+Time: 684438 us
+Rng calls: 100000007
+
+Small range + slow RNG + Bitmask
+Time: 11586374 us
+Rng calls: 138230779
+
+Small range + slow RNG + Short product
+Time: 8411184 us
+Rng calls: 100000011
+
+Small range + slow RNG + Multiply
+Time: 8362985 us
+Rng calls: 100000003
+
+Small range + slow RNG + Multiply 2
+Time: 8354500 us
+Rng calls: 100000005
+
+Small range + slow RNG + Modulo
+Time: 8674044 us
+Rng calls: 100000014
+
+Small range + slow RNG + Modulo 2
+Time: 8599604 us
+Rng calls: 100000007
