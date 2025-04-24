@@ -2,3 +2,8 @@ MSVC:
 
 cl /O2 /MD /Zi /GL Main.c
 clang-cl /O2 /MD /Zi -fuse-ld=lld -flto Main.c
+
+MINGW:
+
+gcc -O3 -g Main.c
+

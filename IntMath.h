@@ -167,11 +167,23 @@ static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
 
 #elif __GNUC__
 
+	#if MACHINE_PTR64
+	
+#pragma intrinsic(_umul128)
+
 static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
 	unsigned __int128 Result2 = (unsigned __int128)A * B;
 	(*Result)[0] = (uint64_t)Result2;
 	(*Result)[1] = (uint64_t)(Result2 >> 64);
 }
+		
+	#elif MACHINE_PTR32
+		
+static void mul_u64(uint64_t A, uint64_t B, uint64_t (*Result)[2]) {
+	mul_u64_iso(A, B, Result);
+}
+
+	#endif
 
 #else
 

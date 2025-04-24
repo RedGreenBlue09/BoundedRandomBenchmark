@@ -32,7 +32,7 @@ The following cases are covered:
 + Large (full) range & small range (0 - 1023)
 + Fast RNG and slow RNG (fast RNG with extra useless instructions)
 + 32-bit and 64-bit RNG
-+ CPU: AMD64 and IA-32
++ CPU: IA-32, AMD64, ARMv7
 
 The RNGs are the xoshiro family.
 
@@ -44,6 +44,24 @@ so the results still show a clear trend among all algorithms.
 
 The graphs and statistics are in the Result foler.
 
+#### IA-32 & AMD64
+
+CPU: Intel Core i7-7700HQ  
+Compiled using [Clang-Cl 19.1.1](https://releases.llvm.org/19.1.0/tools/clang/docs/MSVCCompatibility.html)
+
+```
+clang-cl /O2 /MD /Zi -fuse-ld=lld -flto Main.c
+```
+
+#### ARMv7
+
+CPU: Qualcomm Snapdragon 800 @ 2.15 Ghz  
+Compiled using [Clang 19.1.3](https://github.com/mstorsjo/llvm-mingw/releases/tag/20241030)
+
+```
+gcc -O3 -g -mcpu=cortex-a15 -mfpu=neon-vfpv4 -fvectorize -munaligned-access -flto -Wl,--pdb= Main.c
+```
+
 ## Short Product
 
 This algorithm does quite well, but it isn't "optimal" at all.
@@ -54,7 +72,7 @@ In the large range test, it performs much worse than Bitmask algorithm (40% slow
 and is only slightly faster than the Optimized Multiply algorithm. 
 For the small range test, it ties with the Optimized Multiply method, being the fastest algorithm.
 
-It is always the slowest algorithm when the RNG is slow.
+It is usually the slowest algorithm when the RNG is slow.
 
 Basically, there are algorithms that are on par with or faster than this one in every situation, 
 and they are much easier to understand.
