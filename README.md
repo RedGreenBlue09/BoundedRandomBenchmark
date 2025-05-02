@@ -59,7 +59,7 @@ CPU: Qualcomm Snapdragon 800 @ 2.15 Ghz
 Compiled using [Clang 19.1.3](https://github.com/mstorsjo/llvm-mingw/releases/tag/20241030)
 
 ```
-gcc -O3 -g -mcpu=cortex-a15 -mfpu=neon-vfpv4 -fvectorize -munaligned-access -flto -Wl,--pdb= Main.c
+armv7-w64-mingw32-gcc -O3 -g -mcpu=cortex-a15 -mfpu=neon-vfpv4 -fvectorize -munaligned-access -flto -Wl,--pdb= Main.c
 ```
 
 ## Short Product
