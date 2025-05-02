@@ -30,10 +30,14 @@ static uint8_t log2_u64(uint64_t X) {
 
 static uint8_t log2_u64(uint64_t X) {
 	unsigned long Result;
-	if (_BitScanReverse(&Result, X >> 32))
+	uint32_t High = (uint32_t)(X >> 32);
+	if (High == 0) {
+		_BitScanReverse(&Result, (uint32_t)X);
+		return (uint8_t)Result;
+	} else {
+		_BitScanReverse(&Result, High);
 		return (uint8_t)Result + 32;
-	_BitScanReverse(&Result, (uint32_t)X);
-	return (uint8_t)Result;
+	}
 }
 
 	#endif
@@ -41,7 +45,7 @@ static uint8_t log2_u64(uint64_t X) {
 #elif __GNUC__
 
 static uint8_t log2_u64(uint64_t X) {
-	return (uint8_t)(63 - __builtin_clzll(X));
+	return 63 - (uint8_t)__builtin_clzll(X);
 }
 
 #else
@@ -77,7 +81,7 @@ static uint8_t log2_u64(uint64_t X) {
 
 #pragma intrinsic(_BitScanReverse)
 
-static uint8_t log2_u32(uintptr_t X) {
+static uint8_t log2_u32(uint32_t X) {
 	unsigned long Result;
 	_BitScanReverse(&Result, X);
 	return (uint8_t)Result;
@@ -85,8 +89,8 @@ static uint8_t log2_u32(uintptr_t X) {
 
 #elif __GNUC__
 
-static uint8_t log2_u32(uintptr_t X) {
-	return (uint8_t)(31 - __builtin_clz(X));
+static uint8_t log2_u32(uint32_t X) {
+	return 31 - (uint8_t)__builtin_clz(X);
 }
 
 #else
@@ -100,7 +104,7 @@ static const uint8_t aLogTable32[32] = {
 	19, 27, 23,  6, 26,  5,  4, 31
 };
 
-static uint8_t log2_u32(uintptr_t X) {
+static uint8_t log2_u32(uint32_t X) {
 	X |= X >> 1;
 	X |= X >> 2;
 	X |= X >> 4;
@@ -123,6 +127,100 @@ static uint8_t log2_uptr(uintptr_t X) {
 
 static uint8_t log2_uptr(uintptr_t X) {
 	return log2_u32(X);
+}
+
+#endif
+
+// Bit scan forward (64-bit)
+
+#if _MSC_VER
+
+#include <intrin.h>
+
+	#if MACHINE_PTR64
+
+#pragma intrinsic(_BitScanForward64)
+
+static uint8_t bsf_u64(uint64_t X) {
+	unsigned long Result;
+	_BitScanForward64(&Result, X);
+	return (uint8_t)Result;
+}
+
+	#elif MACHINE_PTR32
+
+#pragma intrinsic(_BitScanForward)
+
+static uint8_t bsf_u64(uint64_t X) {
+	unsigned long Result;
+	uint32_t Low = (uint32_t)X;
+	if (Low == 0) {
+		_BitScanForward(&Result, (uint32_t)(X >> 32));
+		return (uint8_t)Result + 32;
+	} else {
+		_BitScanForward(&Result, Low);
+		return (uint8_t)Result;
+	}
+}
+
+	#endif
+
+#elif __GNUC__
+
+static uint8_t bsf_u64(uint64_t X) {
+	return (uint8_t)__builtin_ctzll(X);
+}
+
+#else
+
+// Source: https://www.chessprogramming.org/BitScan#With_separated_LS1B
+
+static uint8_t bsf_u64(uint64_t X) {
+   return aLogTable64[((X ^ (X - 1)) * 0x03F79D71B4CB0A89) >> 58];
+}
+
+#endif
+
+// Bit scan forward (32-bit)
+
+#if _MSC_VER
+
+#pragma intrinsic(_BitScanForward)
+
+static uint8_t bsf_u32(uint32_t X) {
+	unsigned long Result;
+	_BitScanForward(&Result, X);
+	return (uint8_t)Result;
+}
+
+#elif __GNUC__
+
+static uint8_t bsf_u32(uint32_t X) {
+	return (uint8_t)__builtin_ctz(X);
+}
+
+#else
+	
+// Source: https://www.chessprogramming.org/Kim_Walisch#Bitscan
+
+static uint8_t bsf_u32(uint32_t X) {
+	return aLogTable32[((X ^ (X - 1)) * 0x07C4ACDD) >> 27];
+}
+
+#endif
+
+// Bit scan forward (pointer)
+
+#if MACHINE_PTR64
+
+static uint8_t bsf_uptr(uintptr_t X) {
+	return bsf_u64(X);
+}
+
+#elif MACHINE_PTR32
+
+static uint8_t bsf_uptr(uintptr_t X) {
+	return bsf_u32(X);
 }
 
 #endif
@@ -168,8 +266,6 @@ static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
 #elif __GNUC__
 
 	#if MACHINE_PTR64
-	
-#pragma intrinsic(_umul128)
 
 static void mul_u64(uint64_t A, uint64_t B, uint64_t (*pResult)[2]) {
 	unsigned __int128 Result2 = (unsigned __int128)A * B;
